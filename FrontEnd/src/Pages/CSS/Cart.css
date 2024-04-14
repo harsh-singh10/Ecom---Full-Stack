@@ -1,0 +1,120 @@
+/* Global styles */
+.cart-container {
+  /* width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f5f5f5; */
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
+.empty-cart,
+.cart-total {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.cart-items {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap; /* Enable item wrapping on smaller screens */
+  justify-content: center; /* Center items horizontally within the container */
+  flex-wrap: wrap; /* Enable item wrapping on smaller screens */
+
+  
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  width: calc(50% - 20px); /* Adjust width for two items per row */
+  background-color: #fff; /* Light background for better readability */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  width: calc(50% - 20px); /* Adjust width for two items per row */
+}
+
+.item-image-container {
+  flex: 0 0 100px; /* Fixed width for image */
+  margin-right: 15px;
+}
+
+.item-image img {
+  width: 100%; /* Fill image container */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.item-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Adjust spacing between buttons and quantity */
+  border: 1px solid #ddd; /* Add a subtle border */
+  border-radius: 4px; /* Round corners for a softer look */
+  padding: 5px 10px; /* Add some padding inside */
+  background-color: #eee; /* Light background for better contrast */
+  cursor: pointer; /* Indicate hover interaction for buttons */
+}
+
+.quantity-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px; /* Adjust button font size if needed */
+  cursor: pointer; /* Set cursor for hover interaction */
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.quantity-button:hover {
+  background-color: #0056b3;
+}
+
+.item-price-container {
+  display: flex;
+  flex-direction: column; /* Stack price and total vertically */
+  gap: 5px; /* Add spacing between price and total */
+  font-size: 14px; /* Adjust font size for price and total */
+}
+
+.item-price,
+.item-total {
+  font-weight: bold;
+  /* No longer needed as item-price-container sets font size */
+  /* font-size: 14px; */
+}
+
+@media only screen and (max-width: 500px) {
+  .cart-container {
+    width: 95%;
+  }
+  .cart-item {
+    width: calc(100% - 20px); 
+  }
+  .item-image-container {
+    flex: 0 0 80px; 
+  }
+}
