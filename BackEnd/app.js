@@ -9,8 +9,8 @@ const cors = require("cors");
 
 // multer 
  const upload = require("./middleware/multer.middleware")
-// Product schema 
 
+// Product schema 
 const Product = require("./models/product.model.js")
 
 
@@ -25,9 +25,7 @@ app.get('/', (req, res) => {
 
 // creating Upload Endpoint for images 
 
-
-
- const uploadDirectory = path.join(__dirname, 'upload', 'temp');
+const uploadDirectory = path.join(__dirname, 'upload', 'temp');
 
  // Middleware to serve static files from the uploadDirectory
  app.use('/images', express.static(uploadDirectory));
@@ -84,6 +82,29 @@ app.post('/addproduct' , async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to add product",
+    });
+  }
+});
+
+
+
+// delete a product
+
+app.post('/removeproduct', async (req, res) => {
+  try {
+    const {id } = req.body
+    await Product.findOneAndDelete(id);
+    console.log("Product deleted successfully");
+    res.status(200).json({
+      success: true,
+      message: "Product removed",
+      name: req.body.name
+    });
+  } catch (error) {
+    console.error("Error removing product:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to remove product"
     });
   }
 });
