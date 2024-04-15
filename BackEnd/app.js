@@ -111,6 +111,26 @@ app.post('/removeproduct', async (req, res) => {
 
 
 
+// api for getting all products 
+
+app.get("/allproduct" , async(req,res)=>{
+  try {
+    const allproduct = await Product.find({});
+    console.log("all products feched");
+    // res.send(allproduct)
+    res.status(200).json({
+      success:true,
+      data:allproduct,
+      message:"data feched"
+    })
+  } catch (error) {
+    res.status(400).json({
+      success:false,
+      message:"error while fecheing data"
+    })
+  }
+})
+
 
 
 module.exports = app;
