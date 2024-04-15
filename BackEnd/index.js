@@ -15,7 +15,7 @@ dotenv.config({
 // Connect to MongoDB
 connectDB()
   .then(() => {
-   // app.use(apiRoutes);
+    app.use(apiRoutes);
     app.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
     });
