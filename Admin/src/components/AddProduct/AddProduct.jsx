@@ -28,6 +28,39 @@ const AddProduct = () => {
   const add_Product = async()=>{
     
       console.log(productDetails);
+      let responseData;
+      let product = productDetails;
+      let formData = new FormData();
+      formData.append('product', image);
+
+      await fetch('http://localhost:4000/upload',{
+        method:'POST',
+        headers:{
+          Accept:'application/json',
+        },
+        body:formData,
+      })
+      .then((res)=>res.json())
+      .then((data)=>{responseData=data})
+
+      if(responseData.success){
+        product.image = responseData.image_url
+        console.log(product)
+
+        await fetch('http://localhost:4000/addproduct', {
+          method:'POST',
+          headers:{
+            Accept:'application/json',
+            'Content-type':'application/json'
+          },
+          body:JSON.stringify(product)
+        })
+        .then((res)=>res.json())
+        .then((data)=>{
+          data.success?alert("Product Added") : alert("Failed to send data")
+        })
+      }
+
   }
 
 
