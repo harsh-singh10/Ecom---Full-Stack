@@ -1,12 +1,17 @@
-import { useState } from 'react'
+import React from "react"
+import Navbar from "./components/Navbar/Navbar"
+import Admin from "./pages/admin/Admin"
+
+
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  // browser router is in main.jsx
   return (
     <>
-   
+      <Navbar />
+      <Admin/>
     </>
   )
 }
