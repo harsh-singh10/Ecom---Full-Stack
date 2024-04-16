@@ -1,0 +1,133 @@
+/* Overall Styling */
+.list-product {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    width: 80%;
+    background-color: #fff; /* Lighter background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px;
+  }
+  
+  /* Header */
+  h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333; /* Darker heading color */
+  }
+  
+  /* Product List Header Row */
+  .listproduct-format-main {
+    gap: 20px;
+    display: flex; /* Use flexbox for simple header layout */
+    justify-content: space-between; /* Distribute items evenly */
+    align-items: center; /* Align items vertically */
+    border-bottom: 1px solid #ddd; /* Light border for separation */
+    padding-bottom: 10px;
+  }
+  
+  .listproduct-format-main p {
+    flex: 1; /* Distribute space evenly among columns */
+    margin: 0; /* Remove default margin */
+    font-weight: bold; /* Bold for header text */
+    color: #666; /* Lighter color for secondary information */
+  }
+  
+  /* Product Items */
+  .listproduct-allproducts {
+    margin-top: 15px;
+    width: 92%; 
+  }
+  
+  .listproduct-format {
+    gap: 85px;
+    display: flex; /* Use flexbox for product items */
+    justify-content: space-between; /* Distribute product details */
+    align-items: center; /* Align content vertically */
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee; /* Light border for separation */
+    cursor: pointer; /* Indicate interactivity (optional) */
+    transition: all 0.2s ease; /* Smooth transition on hover */
+  }
+  
+  .listproduct-format:hover {
+    background-color: #f0f0f0; /* Slightly lighter background on hover */
+  }
+  
+  .listproduct-product-icon {
+    width: 70px; /* Consistent image size */
+    height: 70px; /* Consistent image size */
+    object-fit: cover; /* Maintain aspect ratio and fill container */
+    border-radius: 3px; /* Rounded corners for images */
+    margin-right: 15px; /* Spacing between image and text */
+  }
+  
+  .listproduct-format p {
+    flex: 1; /* Distribute space evenly across description */
+    margin: 0; /* Remove default margin */
+    color: #333; /* Darker color for better contrast */
+  }
+  
+  .listproduct-remove-icon {
+    width: 20px; /* Consistent size for remove icon */
+    height: 20px; /* Consistent size for remove icon */
+    cursor: pointer; /* Indicate interactivity for removal */
+    transition: all 0.2s ease; /* Smooth transition on hover */
+  }
+  
+  .listproduct-remove-icon:hover {
+    opacity: 0.7; /* Slightly fade remove icon on hover */
+  }
+  
+
+  @media screen and (max-width: 1200px) {
+    /* Adjustments for screens less than or equal to 1200px wide */
+    .list-product {
+        width: 90%; /* Adjust container width */
+    }
+
+    .listproduct-allproducts {
+        width: 95%; /* Adjust product list width */
+    }
+
+    .listproduct-product-icon {
+        width: 50px; /* Adjust image size */
+        height: 50px; /* Adjust image size */
+    }
+
+    .listproduct-format-main p,
+    .listproduct-format p {
+        font-size: 0.9em; /* Adjust font size for smaller screens */
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    /* Adjustments for screens less than or equal to 1024px wide */
+    .list-product {
+        width: 90%; /* Adjust container width */
+    }
+    .listproduct-format{
+        gap: 49px;
+    }
+    .listproduct-allproducts {
+        width: 95%; /* Adjust product list width */
+    }
+
+    .listproduct-product-icon {
+        width: 50px; /* Adjust image size */
+        height: 50px; /* Adjust image size */
+    }
+
+    .listproduct-format-main p,
+    .listproduct-format p {
+        font-size: 0.9em; /* Adjust font size for smaller screens */
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .listproduct-format{
+        gap: 24px;
+    }
+}
+
