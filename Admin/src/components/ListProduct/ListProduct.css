@@ -35,8 +35,12 @@
   
   /* Product Items */
   .listproduct-allproducts {
+    /* margin-top: 15px;
+    width: 92%;  */
     margin-top: 15px;
-    width: 92%; 
+    width: 92%;
+    max-height: 450px; /* Set maximum height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
   }
   
   .listproduct-format {
