@@ -45,7 +45,8 @@ export const Nav = () => {
        
 
             <div className="nav-login-cart">
-                <Link to='/login'> <button>Login</button> </Link>
+                {localStorage.getItem('auth-token')? <button onClick={()=>{localStorage.removeItem('auth-token'); window.location.replace('/')}} >Log out</button>: <Link to='/login'> <button>Login</button> </Link>}
+               
                <Link to='/cart'><img src={cart_icon} alt="" /></Link> 
                 <div className="nav-cart-count">{count}</div>
             </div>
