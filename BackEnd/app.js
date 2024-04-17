@@ -133,4 +133,80 @@ app.get("/allproduct" , async(req,res)=>{
 
 
 
+// User modellll  
+
+const User = require('./models/user.model.js')
+
+// creating end point for registering users  
+
+app.post('/signup', async(req,res)=>{
+
+  const check = await User.findOne({email:req.body.email})
+
+  if(check){
+    return res.status(400).json({success:false , message:"already exists email"})
+  }
+
+  let cart = {}
+
+  for(let i =0;i<300 ;i++){
+    cart[i] = 0;
+  }
+
+  const user = new User({
+    name:req.body.name,
+    email:req.body.email,
+    password:req.body.password,
+    cartData:req.body.cart
+  })
+
+  await user.save();
+
+  const data = {
+    user:{
+       id:user.id
+    }
+  }
+
+  const token = jwt.sign(data , 'secret_ecom')
+
+  res.json({success:true, token})
+
+})
+
+
+// for log in 
+
+app.post('/login' , async(req,res)=>{
+    
+ let user = await User.findOne({email:req.body.email})
+ 
+ if(user){
+  const passCompare = req.body.password === user.password
+
+    if(passCompare){
+      const data = {
+        user:{
+           id:user.id
+        }
+      }
+    
+      const token = jwt.sign(data , 'secret_ecom')
+    
+      res.json({success:true, token})
+
+    }
+    else{
+      res.json({success:false, message:"wrong password"})
+    }
+ }
+ else{
+  res.json({success:false , message:"wrong email id "})
+ }
+
+
+
+})
+
+
 module.exports = app;
