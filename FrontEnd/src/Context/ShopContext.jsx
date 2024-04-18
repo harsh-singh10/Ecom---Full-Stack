@@ -84,12 +84,34 @@ const ShopContextProvider = (props) => {
     const totalAmount = cart.map((item)=> item.new_price * item.quantity).reduce((total , a)=> total + a , 0)
 
 
-    const handleRemove = (index) => {
-        // Add comment to explain the change
-        // This function removes the item at the specified index from the cart state.
-        const updatedCart = [...cart]; // Create a copy of the cart state to avoid mutation
-        updatedCart.splice(index, 1); // Remove the item at the given index
-        setCart(updatedCart); // Update the cart state with the modified array
+    const handleRemove = (item) => {
+        // Find the index of the item to remove
+        const index = cart.findIndex((cartItem) => cartItem.id === item.id);
+        if (index !== -1) {
+          // Create a copy of the cart array
+          const updatedCart = [...cart];
+          // Remove the item at the found index
+          updatedCart.splice(index, 1);
+          // Update the cart state with the modified array
+          setCart(updatedCart);
+      
+          
+          // Send a request to the server to remove the item from the backend database
+          if (localStorage.getItem('auth-token')) {
+            fetch('http://localhost:4000/removefromcart', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('auth-token')
+              },
+              body: JSON.stringify({ id: item.id }) // Send the ID of the removed item
+            })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error('Error removing item from cart:', error));
+          }
+        }
       };
     
 

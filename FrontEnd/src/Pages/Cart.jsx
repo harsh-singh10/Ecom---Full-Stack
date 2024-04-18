@@ -37,7 +37,7 @@ export const Cart = () => {
                     <span className="item-price">Price: ${item.new_price}</span>
                     <span className="item-total">Total: ${item.new_price * item.quantity}.00</span>
                   </div>
-                  <button className="remove-button" onClick={() => handleRemove(index)}>Remove</button> {/* Add remove button */}
+                  <button className="remove-button" onClick={() => handleRemove(item)}>Remove</button> {/* Add remove button */}
                 </div>
               </div>
             ))}

@@ -275,10 +275,10 @@ const fetchUser = async ( req,res,next)=>{
 
 app.post('/addtocart' ,fetchUser, async(req,res)=>{
 
-  console.log(req.body.item , req.user);
+   console.log("added" , req.body.item );
+  // console.log(userData);
  
   let userData = await User.findOne({_id:req.user.id});
-   // console.log(userData);
 
   userData.cartData[req.body.item] +=1;
 
@@ -291,7 +291,24 @@ app.post('/addtocart' ,fetchUser, async(req,res)=>{
 
 // creating end point to remove  the cart data 
 
+app.post('/removefromcart' , fetchUser , async(req,res)=>{
 
+  console.log( " i am remove " ,req.body , "i am req user " , req.user)
+
+
+  
+  let userData = await User.findOne({_id:req.user.id});
+  if (userData.cartData[req.body.id] > 0) {
+    userData.cartData[req.body.id] -= 1;
+  }
+
+
+  await User.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData})
+
+  res.send("removerd")
+
+
+})
 
 
 
