@@ -135,7 +135,8 @@ app.get("/allproduct" , async(req,res)=>{
 
 // User modellll  
 
-const User = require('./models/user.model.js')
+const User = require('./models/user.model.js');
+const { error } = require("console");
 
 // creating end point for registering users  
 
@@ -241,12 +242,54 @@ app.get('/popularwomen' , async(req,res)=>{
 })
 
 
+
+
+
+
+
+// crating middleware to fetch user 
+
+const fetchUser = async ( req,res,next)=>{
+    const token = req.header('auth-token')
+
+    if(!token){
+      res.status(401).json({success:false,errors:"Please authinticate using valid token"})
+
+    }else{
+      try {
+          const data = jwt.verify(token , 'secret_ecom');
+          req.user = data.user;
+          next();
+
+      } catch (error) {
+
+            res.status(500).json({message:"error while fetching user"})
+
+      }
+    }
+}
+
+
+
 // creating end point for adding data in cart 
 
-app.post('/addtocart' , async(req,res)=>{
-     console.log(req.body);
+app.post('/addtocart' ,fetchUser, async(req,res)=>{
+
+  console.log(req.body.item , req.user);
+ 
+  let userData = await User.findOne({_id:req.user.id});
+   // console.log(userData);
+
+  userData.cartData[req.body.item] +=1;
+
+  await User.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData})
+
+  res.send("Added")
+
 })
 
+
+// creating end point to remove  the cart data 
 
 
 
