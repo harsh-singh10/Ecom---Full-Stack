@@ -34,15 +34,16 @@ export const Cart = () => {
                     <button className="quantity-button" onClick={() => handleIncrement(index)}>+</button>
                   </div>
                   <div className="item-price-container">
-                    <span className="item-price">Price: ${item.new_price.toFixed(2)}</span>
+                    <span className="item-price">Price: ${item.new_price}</span>
                     <span className="item-total">Total: ${item.new_price * item.quantity}.00</span>
                   </div>
+                  <button className="remove-button" onClick={() => handleRemove(index)}>Remove</button> {/* Add remove button */}
                 </div>
               </div>
             ))}
           </div>
           <div className="cart-total">
-            <h3>Total: ${totalAmount.toFixed(2)}</h3>
+            <h3>Total: ${totalAmount}</h3>
             
           </div>
         </>

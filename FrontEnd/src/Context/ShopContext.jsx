@@ -1,50 +1,64 @@
-import React, { createContext, useState } from "react";
-import all_product from '../Components/Assets/all_product'
+import React, { createContext, useEffect, useState } from "react";
+// import all_product from '../Components/Assets/all_product'
 
 
 export const ShopContext = createContext(null);
 
-// const getDefaultCart = ()=>{
-//     let cart = {};
-//     for (let index = 0; index < all_product.length+1; index++) {
-//        cart[index] = 0;
-        
-//     }
-//     return cart;
-// }
+
 
 const ShopContextProvider = (props) => {
-    // const [cartitem , setCartitem] = useState(getDefaultCart());
    
-     
-    // const addToCart = (itemId)=>{
-    //         setCartitem((prev) => ({...prev , [itemId]:prev[itemId]+1}) )
-            
-    //         console.log(cartitem );
-    //     }
-     
-    // const removeToCart = (itemId)=>{
-    //         setCartitem((prev) => ({...prev , [itemId]:prev[itemId]-1}) )
-    // }
+    const [all_product , setAllProduct] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:4000/allproduct')
+        .then((response)=>response.json())
+        .then(({ data }) => setAllProduct(data)) // Destructuring the response object
+       
+
+    }, [])
+    
+
 
     const[cart , setCart] = useState([]);
+
 
     console.log(cart);
 
     const addToCart = (item)=>{
 
-        const existingItem = cart.findIndex((data) => data.id === item.id);
-        if(existingItem !== -1){
-            const update = [...cart];
-            update[existingItem].quantity += 1;
-            setCart(update)
-        }
-       else{
+      try {
+          const existingItem = cart.findIndex((data) => data.id === item.id);
+          if(existingItem !== -1){
+              const update = [...cart];
+              update[existingItem].quantity += 1;
+              setCart(update)
+          }
+         else{
+             setCart((prev) => [...prev , {...item , quantity :1} ] )
+         }
 
-           setCart((prev) => [...prev , {...item , quantity :1} ] )
-       }
+         // from here  
+         if(localStorage.getItem('auth-token')){
+            fetch('http://localhost:4000/addtocart' , {
+                method:'POST',
+                headers:{
+                    Accept:'application/form-data',
+                    'auth-token':`${localStorage.getItem('auth-token')}`,
+                    'Content-Type': 'application/json' 
+                } ,
+                body:JSON.stringify({"item" : item.id})
+            })
+            .then((res)=>res.json())
+            .then((data)=>console.log(data))
+         }
 
-       alert("your item is added to the cart")
+  
+         alert("your item is added to the cart")
+      } catch (error) {
+        console.error('Error adding item to cart:', error);
+        alert("Error adding item to cart");
+      }
 
     }
 
@@ -70,10 +84,14 @@ const ShopContextProvider = (props) => {
     const totalAmount = cart.map((item)=> item.new_price * item.quantity).reduce((total , a)=> total + a , 0)
 
 
+ 
+
+
     const contextValue = { totalAmount,all_product,addToCart,count,cart,handleDecrement,handleIncrement};
     return (
         <ShopContext.Provider value={contextValue}>
             { props.children }
+            
         </ShopContext.Provider>
     )
 }

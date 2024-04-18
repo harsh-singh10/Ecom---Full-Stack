@@ -157,7 +157,7 @@ app.post('/signup', async(req,res)=>{
     name:req.body.name,
     email:req.body.email,
     password:req.body.password,
-    cartData:req.body.cart
+    cartData:cart 
   })
 
   await user.save();
@@ -207,6 +207,49 @@ app.post('/login' , async(req,res)=>{
 
 
 })
+
+
+// creating end point for new collections data 
+
+app.get('/newcollections' , async (req,res)=>{
+  try {
+    let products = await Product.find({});
+
+    let newCollection = products.slice(1).slice(-8);
+
+    console.log("New collection fetched ");
+
+    res.send(newCollection);
+} catch (error) {
+    console.error("Error fetching new collection:", error);
+    res.status(500).send("Internal Server Error");
+}
+}
+)
+
+
+// creating end point for poppular in women 
+
+app.get('/popularwomen' , async(req,res)=>{
+  let products = await Product.find({category:"women"});
+
+  let popularInWomen = products.slice(0,4);
+  console.log("popular in women fects");
+
+  res.send(popularInWomen)
+
+})
+
+
+// creating end point for adding data in cart 
+
+app.post('/addtocart' , async(req,res)=>{
+     console.log(req.body);
+})
+
+
+
+
 
 
 module.exports = app;
