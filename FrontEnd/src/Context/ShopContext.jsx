@@ -84,10 +84,17 @@ const ShopContextProvider = (props) => {
     const totalAmount = cart.map((item)=> item.new_price * item.quantity).reduce((total , a)=> total + a , 0)
 
 
- 
+    const handleRemove = (index) => {
+        // Add comment to explain the change
+        // This function removes the item at the specified index from the cart state.
+        const updatedCart = [...cart]; // Create a copy of the cart state to avoid mutation
+        updatedCart.splice(index, 1); // Remove the item at the given index
+        setCart(updatedCart); // Update the cart state with the modified array
+      };
+    
 
 
-    const contextValue = { totalAmount,all_product,addToCart,count,cart,handleDecrement,handleIncrement};
+    const contextValue = { totalAmount,all_product,addToCart,count,cart,handleDecrement,handleIncrement,handleRemove};
     return (
         <ShopContext.Provider value={contextValue}>
             { props.children }

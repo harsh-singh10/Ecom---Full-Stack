@@ -5,7 +5,7 @@ import './CSS/Cart.css';
 import { ShopContext } from '../Context/ShopContext';
 
 export const Cart = () => {
-  const { cart, totalAmount, handleDecrement, handleIncrement } = useContext(ShopContext);
+  const { cart, totalAmount, handleDecrement, handleIncrement, handleRemove  } = useContext(ShopContext);
 
   // Filter out items with quantity zero
   const filteredCart = cart.filter(item => item.quantity >= 1);
