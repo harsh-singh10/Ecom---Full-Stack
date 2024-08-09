@@ -14,13 +14,33 @@ const ShopContextProvider = (props) => {
         fetch('http://localhost:4000/allproduct')
         .then((response)=>response.json())
         .then(({ data }) => setAllProduct(data)) // Destructuring the response object
-       
+
+        if(localStorage.getItem('auth-token')){
+          fetch('http://localhost:4000/getcart' , {
+                method:'POST',
+                headers:{
+                    Accept:'application/form-data',
+                    'auth-token':`${localStorage.getItem('auth-token')}`,
+                    'Content-Type': 'application/json' 
+                } ,
+                body:JSON.stringify(),
+            })
+            .then((res)=>res.json())
+            .then((data)=>{setCart(data)})
+        }
+
 
     }, [])
     
 
 
-    const[cart , setCart] = useState([]);
+     const[cart , setCart] = useState([]);
+   
+    ///////
+ 
+
+
+    //////
 
 
     console.log(cart);
@@ -62,8 +82,8 @@ const ShopContextProvider = (props) => {
 
     }
 
-    const count = cart.reduce((total , q) =>( total + q.quantity),0)
-
+    //  const count = cart.reduce((total , q) =>( total + q.quantity),0)
+    const count = cart.length > 0 ? cart.reduce((total, q) => (total + q.quantity), 0) : 0;
 
 
 

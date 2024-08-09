@@ -137,6 +137,7 @@ app.get("/allproduct" , async(req,res)=>{
 
 const User = require('./models/user.model.js');
 const { error } = require("console");
+const { log } = require("util");
 
 // creating end point for registering users  
 
@@ -310,6 +311,22 @@ app.post('/removefromcart' , fetchUser , async(req,res)=>{
 
 })
 
+
+// creataing end point for getting cart data 
+app.post('/getcart', fetchUser, async (req, res) => {
+  try {
+    console.log("sadfe");
+    const user = await User.findOne({ _id: req.user.id });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    console.log("i am get wala user" , user);
+    res.json(user.cartData ); // Respond with user's cart data
+  } catch (error) {
+    console.error('Error fetching cart data:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 module.exports = app;
